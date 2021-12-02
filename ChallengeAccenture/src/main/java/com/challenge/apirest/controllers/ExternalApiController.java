@@ -1,9 +1,11 @@
 package com.challenge.apirest.controllers;
 
-import org.springframework.http.ResponseEntity;
+import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,13 +15,7 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 @RequestMapping("/") 
 public class ExternalApiController {
-	
 	static final String uri = "https://jsonplaceholder.typicode.com";
-	
-	@GetMapping("example")
-	public ResponseEntity<Object> index(){
-		return ResponseEntity.ok("OK");
-	}
 	
 	@GetMapping("users")
 	private String getUsers() {
@@ -35,9 +31,24 @@ public class ExternalApiController {
 		return comments;
 	}
 	
-	@GetMapping("photos/{user}")
-	private ResponseEntity<Object> findPhotosByUser(@PathVariable("user") String user){
-		return ResponseEntity.ok("Ok");
+	@GetMapping("userPhotos")
+	private String getUserPhotos(@RequestParam String userId){
+		RestTemplate restTemplate = new RestTemplate();
+		String albumUser = restTemplate.getForObject(uri + "/albums?userId=" + userId, String.class);
+		JSONArray albums = new JSONArray(albumUser);
+		
+		ArrayList<Integer> albumIds = new ArrayList<>(); 
+		for(int i = 0; i < albums.length(); i ++) {
+			JSONObject json = albums.getJSONObject(i);
+			albumIds.add(json.getInt("id"));
+		}
+		
+		String userPhotos = restTemplate.getForObject(uri + "/photos?albumId=" + albumIds.get(0) 
+		+ "&albumId=" + albumIds.get(1) + "&albumId=" + albumIds.get(2) + "&albumId=" + albumIds.get(3) +
+		"&albumId=" + albumIds.get(4) + "&albumId=" + albumIds.get(5) + "&albumId=" + albumIds.get(6) +
+		"&albumId=" + albumIds.get(7) + "&albumId=" + albumIds.get(8) + "&albumId=" + albumIds.get(9), String.class);
+		
+		return userPhotos;
 	}
 	
 	@GetMapping("commentsByName")
