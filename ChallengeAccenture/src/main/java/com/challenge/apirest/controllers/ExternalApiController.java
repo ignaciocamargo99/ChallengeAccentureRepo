@@ -34,8 +34,8 @@ public class ExternalApiController {
 	@GetMapping("userPhotos")
 	private String getUserPhotos(@RequestParam String userId){
 		RestTemplate restTemplate = new RestTemplate();
-		String albumUser = restTemplate.getForObject(uri + "/albums?userId=" + userId, String.class);
-		JSONArray albums = new JSONArray(albumUser);
+		String userAlbum = restTemplate.getForObject(uri + "/albums?userId=" + userId, String.class);
+		JSONArray albums = new JSONArray(userAlbum);
 		
 		ArrayList<Integer> albumIds = new ArrayList<>(); 
 		for(int i = 0; i < albums.length(); i ++) {
@@ -57,5 +57,19 @@ public class ExternalApiController {
 		String commentsByName = restTemplate.getForObject(uri + "/comments?name=" + name, String.class);
 		return commentsByName;
 	}
+	
+	@GetMapping("commentsByUser")
+	private String getCommentsByUser(@RequestParam String userId) {
+		RestTemplate restTemplate = new RestTemplate();
+		String userPosts = restTemplate.getForObject(uri + "/posts?userId=" + userId, String.class);
+		JSONArray posts = new JSONArray(userPosts);
+		
+		System.out.println(userPosts);
+		
+		
+		return "OK";
+	}
+	
+	
 
 }
