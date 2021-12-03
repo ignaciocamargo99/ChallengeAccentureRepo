@@ -18,12 +18,12 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 @ControllerAdvice
 public class ApiExceptionHandler {
 	
-//	@ResponseStatus(HttpStatus.NOT_FOUND)
-//	@ExceptionHandler({NotFoundException.class})
-//	@ResponseBody
-//	public ErrorMessage notFoundRequest(HttpServletRequest request, Exception exception) {
-//		return new ErrorMessage(exception, request.getRequestURI());
-//	}
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	@ExceptionHandler({NotFoundException.class})
+	@ResponseBody
+	public ErrorMessage notFoundRequest(HttpServletRequest request, Exception exception) {
+		return new ErrorMessage(exception, request.getRequestURI());
+	}
 	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler({

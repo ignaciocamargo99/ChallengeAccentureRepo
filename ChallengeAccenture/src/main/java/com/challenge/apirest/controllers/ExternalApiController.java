@@ -2,9 +2,11 @@ package com.challenge.apirest.controllers;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.challenge.apirest.utils.exceptions.BadRequestException;
+import com.challenge.apirest.utils.exceptions.NotFoundException;
 
-@CrossOrigin("*") 
 @RestController
 @RequestMapping("/") 
-public class ExternalApiController {
+public class ExternalApiController implements ErrorController{
 	static final String uri = "https://jsonplaceholder.typicode.com";
 	
 	@GetMapping("users")
@@ -67,7 +69,7 @@ public class ExternalApiController {
 			
 		}
 		catch(Exception e) {
-			return e.getMessage();
+			throw new BadRequestException("You must pass an INTEGER for the userId");
 		}
 	}
 	
@@ -79,7 +81,7 @@ public class ExternalApiController {
 			return commentsByName;
 		}
 		catch(Exception e) {
-			return e.getMessage();
+			throw new BadRequestException("You must pass an STRING for the name");
 		}
 	}
 	
@@ -90,6 +92,7 @@ public class ExternalApiController {
 			String userPosts = restTemplate.getForObject(uri + "/posts?userId=" + userId, String.class);
 			
 //			if(!userPosts.equals("")) {
+			
 				JSONArray posts = new JSONArray(userPosts);
 				
 				
@@ -113,5 +116,11 @@ public class ExternalApiController {
 			throw new BadRequestException("You must pass an INTEGER for the userId");
 		}
 
+	}
+	
+
+	@GetMapping("/error")
+	private String error404(HttpServletRequest request) {
+		throw new NotFoundException("URL doesnt't exists");
 	}
 }
