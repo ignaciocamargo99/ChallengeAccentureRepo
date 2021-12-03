@@ -1,5 +1,6 @@
 # Challenge Accenture
 [![Java](https://blog.nebrass.fr/wp-content/uploads/java-logo-1.png)](https://nodesource.com/products/nsolid) 
+
 Challenge Accenture is a project whose objective is to consume an external service use its information through an API. 
 The external service with the data and routes is located at: https://jsonplaceholder.typicode.com
 
@@ -40,6 +41,7 @@ Handled request exceptions are Not Found(404) and Bad Request(400).
 
 ## Authors ✒️
 API Developer: Ignacio Ramiro Camargo Sotomayor.
+
 Project proposed by: Accenture/Wolox Team.
 
 
