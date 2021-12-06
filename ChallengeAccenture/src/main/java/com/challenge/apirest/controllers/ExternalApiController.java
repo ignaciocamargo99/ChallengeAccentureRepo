@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +22,7 @@ import com.challenge.apirest.utils.exceptions.NotFoundException;
 public class ExternalApiController implements ErrorController {
 	static final String uri = "https://jsonplaceholder.typicode.com";
 
-	@GetMapping("users")
+	@GetMapping(value = "users", produces = MediaType.APPLICATION_JSON_VALUE)
 	private String getUsers() {
 		try {
 			RestTemplate restTemplate = new RestTemplate();
@@ -32,7 +33,7 @@ public class ExternalApiController implements ErrorController {
 		}
 	}
 
-	@GetMapping("comments")
+	@GetMapping(value = "comments", produces = MediaType.APPLICATION_JSON_VALUE)
 	private String getComments() {
 		try {
 			RestTemplate restTemplate = new RestTemplate();
@@ -44,7 +45,7 @@ public class ExternalApiController implements ErrorController {
 
 	}
 
-	@GetMapping("userPhotos")
+	@GetMapping(value = "userPhotos", produces = MediaType.APPLICATION_JSON_VALUE)
 	private String getUserPhotos(@RequestParam String userId) {
 		try {
 			RestTemplate restTemplate = new RestTemplate();
@@ -71,7 +72,7 @@ public class ExternalApiController implements ErrorController {
 		}
 	}
 
-	@GetMapping("commentsByName")
+	@GetMapping(value = "commentsByName", produces = MediaType.APPLICATION_JSON_VALUE)
 	private String getCommentsByName(@RequestParam String name) {
 		try {
 			RestTemplate restTemplate = new RestTemplate();
@@ -88,7 +89,7 @@ public class ExternalApiController implements ErrorController {
 		}
 	}
 
-	@GetMapping("commentsByUser")
+	@GetMapping(value = "commentsByUser", produces = MediaType.APPLICATION_JSON_VALUE)
 	private String getCommentsByUser(@RequestParam String userId) {
 		try {
 			RestTemplate restTemplate = new RestTemplate();
