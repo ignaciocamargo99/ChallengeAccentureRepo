@@ -23,6 +23,9 @@ To run choose "Run as Spring Boot app".
 ## IDE  🛠️
 - [Eclipse](https://www.eclipse.org/)
 
+## DEPLOYMENT
+- Heroku (https://accenture-wolox.herokuapp.com/)
+
 ## How to use? 🔧
 
 To use the API you have 5 endpoints in port 8080:

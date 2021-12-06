@@ -32,6 +32,7 @@ public class ExternalApiController implements ErrorController {
 			return e.getMessage();
 		}
 	}
+	
 
 	@GetMapping(value = "comments", produces = MediaType.APPLICATION_JSON_VALUE)
 	private String getComments() {
